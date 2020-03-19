@@ -15,7 +15,7 @@ config.read('config.ini')
 
 # reading & applying config
 version = config['INITIAL']['version']
-debug = config['INITIAL']['debug'].getboolean()
+debug = config['INITIAL'].getboolean('debug')
 
 db_address = config['DATABASE']['address']
 db_port = config['DATABASE']['port']

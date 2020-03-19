@@ -7,6 +7,7 @@ import configparser
 from mfrc522 import SimpleMFRC522
 
 # TODO: create powerloop as operational supervisor
+# TODO: uid muss in 'ification' definiert sein um TAG zuzuweisen
 
 # basic initialisation of used fVariables
 reader = SimpleMFRC522()
@@ -44,7 +45,7 @@ def check_database(tag_id):
     cursor = cnx.cursor()
     cursor.execute(query)
     result = cursor.fetchone()
-    print(result[0])
+    if debug: print(result[0])
     cursor.close()
     cnx.close()
     return result[0]
@@ -89,4 +90,25 @@ def add_tag_to_db(tag_id):
         if debug: print("You can come back any time to setup the RFID-TAG.")
 
 
+# FOR 'STEMPELN' and DIRECTION ANALYSIS
+def stempeln(userid):
+    query_get_direction = "SELECT `isHere` FROM `ification` WHERE `uid` = " + userid + ";"
+    cnx = mysql.connector.connect(user=db_username, host=db_address, password=db_password, database=db_database)
+    cursor = cnx.cursor()
+    cursor.execute(query_get_direction)
+    currently_here = cursor.fetchone()
+    new_direction = 1
+    if currently_here[0]:
+        new_direction = 0
+    query_setnew_direction = "UPDATE `ification` SET `isHere` = " + new_direction + " WHERE `uid` = " + userid + " ;"
+    cursor.execute(query_setnew_direction)
+    cnx.commit()
+    query_log = "INSERT INTO `log` (`datetime`, `uid`, `cameIn`) VALUES ('current_timestamp().000000', '" + userid + "', '" + new_direction + "');"
+    cursor.execute(query_log)
+    cnx.commit()
+    cursor.close()
+    cnx.close()
+
+
+# ALWAYS CLEANUP GPIO AFTER USE!
 GPIO.cleanup()

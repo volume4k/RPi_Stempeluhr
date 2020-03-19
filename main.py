@@ -2,14 +2,20 @@
 
 import sys
 import RPi.GPIO as GPIO
+import mysql.connector
+import configparser
 from mfrc522 import SimpleMFRC522
 
-import mysql.connector
+# TODO: create powerloop as operational supervisor
+# TODO: cleanup
 
-# TODO: version change on update
-version = "0.1"
+reader = SimpleMFRC522()
+config = configparser.ConfigParser()
+config.read('config.ini')
+version = config['INITIAL']['version']
+debug = False
 
-print("initializing...")
+if debug: print("initializing...")
 print("This is version " + version + ".")
 
 # property assignment
@@ -18,8 +24,6 @@ db_port = "3306"
 db_username = "stempeluhr"
 db_password = "Rx8723hm95Wqbnk324zx"
 db_database = "stempeluhr"
-
-reader = SimpleMFRC522()
 
 
 # functions
@@ -78,4 +82,3 @@ def add_tag_to_db(tag_id):
 
     else:
         print("You can come back any time to setup the RFID-TAG.")
-

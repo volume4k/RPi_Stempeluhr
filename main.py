@@ -1,5 +1,6 @@
 #!/usr/bin/python3.7
 
+import sys
 import RPi.GPIO as GPIO
 from mfrc522 import SimpleMFRC522
 
@@ -35,8 +36,46 @@ def check_database(tag_id):
     query = "SELECT uid FROM ident WHERE nfc_id = " + tag_id
     cursor = cnx.cursor()
     cursor.execute(query)
-    result = cursor.fetchall()
-    print(result)
+    result = cursor.fetchone()
+    print(result[0])
     cursor.close()
     cnx.close()
-    return
+    return result[0]
+
+
+def add_tag_to_db(tag_id):
+    print("This tag is not yet known to the database.")
+    print("Would you like to create a new entry?")
+    answer_to_question = input("type y/N: ")
+
+    if answer_to_question.upper() == "Y":
+        uid_to_write = input("Please specify the persons UserID: ")
+        print("The UserID you gave is: " + uid_to_write + ".")
+        confirm_assignment = input("Do you want to assign this UserID to TAG-" + tag_id + "? Type y/N: ")
+
+        if confirm_assignment.upper() == "Y":
+            print("connecting to database")
+            cnx = mysql.connector.connect(user=db_username, host=db_address, password=db_password, database=db_database)
+            print("connected")
+            query = "INSERT INTO `ident` (`uid`, `nfc_id`) VALUES ('" + uid_to_write + "', '" + tag_id + "');"
+            print("assigning...")
+            cursor = cnx.cursor()
+
+            try:
+                cursor.execute(query)
+                cnx.commit()
+            except mysql.connector.Error as err:
+                print(err)
+                sys.exit(1)
+
+            print("assigned")
+            cursor.close()
+            cnx.close()
+            print("connection closed")
+
+        else:
+            print("operation canceled. please start again.")
+
+    else:
+        print("You can come back any time to setup the RFID-TAG.")
+

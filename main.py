@@ -7,26 +7,28 @@ import configparser
 from mfrc522 import SimpleMFRC522
 
 # TODO: create powerloop as operational supervisor
-# TODO: cleanup
 
+# basic initialisation of used fVariables
 reader = SimpleMFRC522()
 config = configparser.ConfigParser()
 config.read('config.ini')
-version = config['INITIAL']['version']
-debug = False
 
-if debug: print("initializing...")
+# reading & applying config
+version = config['INITIAL']['version']
+debug = config['INITIAL']['debug'].getboolean()
+
+db_address = config['DATABASE']['address']
+db_port = config['DATABASE']['port']
+db_username = config['DATABASE']['username']
+db_password = config['DATABASE']['password']
+db_database = config['DATABASE']['database']
+
+if debug: print("INITIALIZED")
 print("This is version " + version + ".")
 
-# property assignment
-db_address = "127.0.0.1"
-db_port = "3306"
-db_username = "stempeluhr"
-db_password = "Rx8723hm95Wqbnk324zx"
-db_database = "stempeluhr"
 
-
-# functions
+# FUNCTIONS BEING DEFINED HERE
+# FOR READING TAG
 def read_nfc():
     print("Hold your NFC-Tag close the reader please.")
     nfc_id, text = reader.read()
@@ -35,6 +37,7 @@ def read_nfc():
     return str(nfc_id)
 
 
+# FOR READING THE DATABASE (RETURNING UserID)
 def check_database(tag_id):
     cnx = mysql.connector.connect(user=db_username, host=db_address, password=db_password, database=db_database)
     query = "SELECT uid FROM ident WHERE nfc_id = " + tag_id
@@ -47,6 +50,7 @@ def check_database(tag_id):
     return result[0]
 
 
+# FOR ADDING TAGs TO THE DATABASE
 def add_tag_to_db(tag_id):
     print("This tag is not yet known to the database.")
     print("Would you like to create a new entry?")
@@ -58,27 +62,28 @@ def add_tag_to_db(tag_id):
         confirm_assignment = input("Do you want to assign this UserID to TAG-" + tag_id + "? Type y/N: ")
 
         if confirm_assignment.upper() == "Y":
-            print("connecting to database")
+            if debug: print("connecting to database")
             cnx = mysql.connector.connect(user=db_username, host=db_address, password=db_password, database=db_database)
-            print("connected")
+            if debug: print("connected")
             query = "INSERT INTO `ident` (`uid`, `nfc_id`) VALUES ('" + uid_to_write + "', '" + tag_id + "');"
-            print("assigning...")
+            if debug: print("assigning...")
             cursor = cnx.cursor()
 
             try:
                 cursor.execute(query)
                 cnx.commit()
             except mysql.connector.Error as err:
+                print("ERROR:")
                 print(err)
                 sys.exit(1)
 
-            print("assigned")
+            print("SUCCESS")
             cursor.close()
             cnx.close()
-            print("connection closed")
+            if debug: print("connection closed")
 
         else:
-            print("operation canceled. please start again.")
+            print("CANCELED")
 
     else:
-        print("You can come back any time to setup the RFID-TAG.")
+        if debug: print("You can come back any time to setup the RFID-TAG.")

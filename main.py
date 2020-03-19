@@ -87,3 +87,6 @@ def add_tag_to_db(tag_id):
 
     else:
         if debug: print("You can come back any time to setup the RFID-TAG.")
+
+
+GPIO.cleanup()

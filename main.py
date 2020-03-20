@@ -41,7 +41,7 @@ def read_nfc():
 # FOR READING THE DATABASE (RETURNING UserID)
 def check_database(tag_id):
     cnx = mysql.connector.connect(user=db_username, host=db_address, password=db_password, database=db_database)
-    query = "SELECT uid FROM ident WHERE nfc_id = " + tag_id
+    query = "SELECT uid FROM ident WHERE nfc_id = " + str(tag_id) + ";"
     cursor = cnx.cursor()
     cursor.execute(query)
     result = cursor.fetchone()
@@ -121,7 +121,7 @@ def power_loop():
         try:
             tag_id = read_nfc()
             user_id = check_database(tag_id)
-            if user_id == 0:
+            if user_id == 'None':
                 add_tag_to_db(tag_id)
             else:
                 stempeln(user_id)

@@ -134,7 +134,7 @@ def stempeln(userid):
 
 gettagid = read_nfc()
 unhid = check_database(gettagid)
-if str(unhid) == '':
+if str(unhid) == 'None':
     print("shit")
 
 else:

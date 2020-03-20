@@ -132,6 +132,8 @@ def power_loop():
             pass
 
 
+power_loop()
+
 # gettagid = read_nfc()
 # unhid = check_database(gettagid)
 # if str(unhid) == 'None':

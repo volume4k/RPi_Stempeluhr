@@ -100,7 +100,8 @@ def stempeln(userid):
     new_direction = 1
     if currently_here[0]:
         new_direction = 0
-    query_setnew_direction = "UPDATE `ification` SET `isHere` = " + str(new_direction) + " WHERE `uid` = " + str(userid) + " ;"
+    query_setnew_direction = "UPDATE `ification` SET `isHere` = " + str(new_direction) + " WHERE `uid` = " + str(
+        userid) + " ;"
     cursor.execute(query_setnew_direction)
     cnx.commit()
     query_log = "INSERT INTO `log` (`uid`, `cameIn`) VALUES ('" + str(userid) + "', '" + str(new_direction) + "');"
@@ -110,6 +111,28 @@ def stempeln(userid):
     cnx.close()
     return
 
+
+# FOR RUNNING THIS BITCH
+def power_loop():
+    if debug: print("powerloop up")
+    print("press ctrl-c to escape")
+    hi = True
+    while hi:
+        try:
+            tag_id = read_nfc()
+            user_id = check_database(tag_id)
+            if user_id == 0:
+                add_tag_to_db(tag_id)
+            else:
+                stempeln(user_id)
+
+        except KeyboardInterrupt:
+            hi = False
+            GPIO.cleanup()
+            pass
+
+
+power_loop()
 
 # ALWAYS CLEANUP GPIO AFTER USE!
 GPIO.cleanup()

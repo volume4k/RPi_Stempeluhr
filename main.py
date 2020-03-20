@@ -48,7 +48,7 @@ def check_database(tag_id):
     if debug: print(result)
     cursor.close()
     cnx.close()
-    return result[0]
+    return result
 
 
 # FOR ADDING TAGs TO THE DATABASE

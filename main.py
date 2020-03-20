@@ -1,6 +1,8 @@
 #!/usr/bin/python3.7
 
 import sys
+import time
+
 import RPi.GPIO as GPIO
 import mysql.connector
 import configparser
@@ -128,6 +130,7 @@ def power_loop():
                 add_tag_to_db(tag_id)
             else:
                 stempeln(user_id)
+                time.sleep(1.5)
 
         except KeyboardInterrupt:
             hi = False

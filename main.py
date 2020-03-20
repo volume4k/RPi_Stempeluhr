@@ -6,8 +6,8 @@ import mysql.connector
 import configparser
 from mfrc522 import SimpleMFRC522
 
-# TODO: create powerloop as operational supervisor
-# TODO: uid muss in 'ification' definiert sein um TAG zuzuweisen
+# TODO: create a website which can be used to view and administer
+# TODO: different language support + new config
 
 # basic initialisation of used fVariables
 reader = SimpleMFRC522()
@@ -131,19 +131,10 @@ def power_loop():
 
         except KeyboardInterrupt:
             hi = False
+            # ALWAYS CLEANUP GPIO AFTER USE!
             GPIO.cleanup()
             pass
 
 
 power_loop()
 
-# gettagid = read_nfc()
-# unhid = check_database(gettagid)
-# if str(unhid) == 'None':
-#     print("shit")
-#
-# else:
-#     print("buuuhhmmm")
-
-# ALWAYS CLEANUP GPIO AFTER USE!
-GPIO.cleanup()

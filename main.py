@@ -45,7 +45,7 @@ def check_database(tag_id):
     cursor = cnx.cursor()
     cursor.execute(query)
     result = cursor.fetchone()
-    if debug: print(result[0])
+    if debug: print(result)
     cursor.close()
     cnx.close()
     return result[0]

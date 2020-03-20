@@ -34,7 +34,6 @@ def read_nfc():
     print("Hold your NFC-Tag close the reader please.")
     nfc_id, text = reader.read()
     print("The read id is: " + str(nfc_id))
-    GPIO.cleanup()
     return str(nfc_id)
 
 
@@ -45,6 +44,10 @@ def check_database(tag_id):
     cursor = cnx.cursor()
     cursor.execute(query)
     result = cursor.fetchone()
+    if str(result) == 'None':
+        pass
+    else:
+        result = result[0]
     if debug: print(result)
     cursor.close()
     cnx.close()

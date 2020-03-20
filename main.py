@@ -92,7 +92,7 @@ def add_tag_to_db(tag_id):
 
 # FOR 'STEMPELN' and DIRECTION ANALYSIS
 def stempeln(userid):
-    query_get_direction = "SELECT `isHere` FROM `ification` WHERE `uid` = " + userid.str() + ";"
+    query_get_direction = "SELECT `isHere` FROM `ification` WHERE `uid` = " + str(userid) + ";"
     cnx = mysql.connector.connect(user=db_username, host=db_address, password=db_password, database=db_database)
     cursor = cnx.cursor()
     cursor.execute(query_get_direction)
@@ -100,14 +100,15 @@ def stempeln(userid):
     new_direction = 1
     if currently_here[0]:
         new_direction = 0
-    query_setnew_direction = "UPDATE `ification` SET `isHere` = " + new_direction.str() + " WHERE `uid` = " + userid.str() + " ;"
+    query_setnew_direction = "UPDATE `ification` SET `isHere` = " + str(new_direction) + " WHERE `uid` = " + str(userid) + " ;"
     cursor.execute(query_setnew_direction)
     cnx.commit()
-    query_log = "INSERT INTO `log` (`datetime`, `uid`, `cameIn`) VALUES ('current_timestamp().000000', '" + userid.str() + "', '" + new_direction.str() + "');"
+    query_log = "INSERT INTO `log` (`datetime`, `uid`, `cameIn`) VALUES ('current_timestamp().000000', '" + str(userid) + "', '" + str(new_direction) + "');"
     cursor.execute(query_log)
     cnx.commit()
     cursor.close()
     cnx.close()
+    return
 
 
 # ALWAYS CLEANUP GPIO AFTER USE!

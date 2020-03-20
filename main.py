@@ -113,32 +113,32 @@ def stempeln(userid):
 
 
 # FOR RUNNING THIS BITCH
-# def power_loop():
-#     if debug: print("powerloop up")
-#     print("press ctrl-c to escape")
-#     hi = True
-#     while hi:
-#         try:
-#             tag_id = read_nfc()
-#             user_id = check_database(tag_id)
-#             if user_id == 'None':
-#                 add_tag_to_db(tag_id)
-#             else:
-#                 stempeln(user_id)
+def power_loop():
+    if debug: print("powerloop up")
+    print("press ctrl-c to escape")
+    hi = True
+    while hi:
+        try:
+            tag_id = read_nfc()
+            user_id = check_database(tag_id)
+            if str(user_id) == 'None':
+                add_tag_to_db(tag_id)
+            else:
+                stempeln(user_id)
+
+        except KeyboardInterrupt:
+            hi = False
+            GPIO.cleanup()
+            pass
+
+
+# gettagid = read_nfc()
+# unhid = check_database(gettagid)
+# if str(unhid) == 'None':
+#     print("shit")
 #
-#         except KeyboardInterrupt:
-#             hi = False
-#             GPIO.cleanup()
-#             pass
-
-
-gettagid = read_nfc()
-unhid = check_database(gettagid)
-if unhid == 0:
-    print("shit")
-
-else:
-    print("buuuhhmmm")
+# else:
+#     print("buuuhhmmm")
 
 # ALWAYS CLEANUP GPIO AFTER USE!
 GPIO.cleanup()

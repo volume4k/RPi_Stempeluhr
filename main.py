@@ -133,7 +133,12 @@ def stempeln(userid):
 
 
 gettagid = read_nfc()
-print(check_database(gettagid))
+unhid = check_database(gettagid)
+if unhid == 'None':
+    print("shit")
+
+else:
+    print("buuuhhmmm")
 
 # ALWAYS CLEANUP GPIO AFTER USE!
 GPIO.cleanup()

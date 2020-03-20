@@ -103,7 +103,7 @@ def stempeln(userid):
     query_setnew_direction = "UPDATE `ification` SET `isHere` = " + str(new_direction) + " WHERE `uid` = " + str(userid) + " ;"
     cursor.execute(query_setnew_direction)
     cnx.commit()
-    query_log = "INSERT INTO `log` (`datetime`, `uid`, `cameIn`) VALUES ('current_timestamp().000000', '" + str(userid) + "', '" + str(new_direction) + "');"
+    query_log = "INSERT INTO `log` (`uid`, `cameIn`) VALUES ('" + str(userid) + "', '" + str(new_direction) + "');"
     cursor.execute(query_log)
     cnx.commit()
     cursor.close()

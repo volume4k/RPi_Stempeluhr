@@ -1,5 +1,11 @@
 package main
 
+import (
+	"fmt"
+	"github.com/fuzxxl/nfc/2.0/nfc"
+)
+
 func main(){
-	Example()
+	devices,_ := nfc.ListDevices()
+	fmt.Println(devices)
 }

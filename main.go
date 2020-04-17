@@ -10,6 +10,5 @@ func main(){
 	fmt.Println(devices)
 
 	device := nfc.Device{}
-	dev2, _ := nfc.Open(device.Connection())
-	fmt.Println(dev2)
+	fmt.Println(device.Connection())
 }

@@ -31,6 +31,7 @@ func none(){
 func handOffForDB(u [10]byte){
 // instantly hands off operation to Handler
 	go DBHandler(u)
+	return
 }
 
 func DBHandler(u [10]byte){

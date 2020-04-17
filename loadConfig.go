@@ -12,7 +12,7 @@ type Configuration struct {
 }
 
 func loadConfig () Configuration {
-	configuration := Configuration{dbUser: "jonathan", dbPass: "pass", dbAddr: "hostname:port", dbName: "dbName", dbProtocol: "tcp"}
+	configuration := Configuration{dbUser: "stempeluhr", dbPass: "Rx8723hm95Wqbnk324zx", dbAddr: "127.0.0.1:3306", dbName: "test", dbProtocol: "tcp"}
 	return configuration
 
 	// FOR TODO

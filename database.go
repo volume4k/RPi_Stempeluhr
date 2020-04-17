@@ -27,3 +27,12 @@ func none(){
 	}
 	fmt.Println(db)
 }
+
+func handOffForDB(u [10]byte){
+// instantly hands off operation to Handler
+	go DBHandler(u)
+}
+
+func DBHandler(u [10]byte){
+	none()
+}

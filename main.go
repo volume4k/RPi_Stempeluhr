@@ -7,8 +7,8 @@ import (
 
 func main(){
 	devices,_ := nfc.ListDevices()
+	dev := nfc.Device{}
 	fmt.Println(devices)
-
-	device := nfc.Device{}
-	fmt.Println(device.Connection())
+	fmt.Println(dev.String())
+	fmt.Println(nfc.Version())
 }

@@ -7,8 +7,9 @@ import (
 
 func main(){
 	devices,_ := nfc.ListDevices()
-	dev := nfc.Device{}
+	nfc.Open(devices[0])
+	fmt.Println("bis hier")
+	
 	fmt.Println(devices)
-	_ = dev.InitiatorInit()
-	fmt.Println(nfc.Version())
+
 }

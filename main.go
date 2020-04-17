@@ -55,6 +55,8 @@ func get_card (pnd *nfc.Device) ([10]byte, error) {
 
 		for _, t := range targets {
 			if card, ok := t.(*nfc.ISO14443aTarget); ok {
+				idk := string(card.UID[:])
+				fmt.Println(idk)
 				return card.UID, nil
 			}
 		}

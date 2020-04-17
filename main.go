@@ -3,5 +3,5 @@ package main
 import "fmt"
 
 func main(){
-	fmt.Println(nfcInit()[0])
+	fmt.Println(len(nfcInit()))
 }

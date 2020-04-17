@@ -47,7 +47,7 @@ func Example() {
 	defer rfid.Halt()
 
 	// Setting the antenna signal strength.
-	rfid.SetAntennaGain(5)
+	_ = rfid.SetAntennaGain(7)
 
 	// Converting access key.
 	// This value corresponds to first pi "numbers": 3 14 15 92 65 35.
@@ -75,7 +75,7 @@ func Example() {
 
 		for {
 			// Trying to read data from sector 1 block 0
-			data, err := rfid.ReadCard(10*time.Second, byte(commands.PICC_AUTHENT1B), 1, 0, key)
+			data, err := rfid.ReadCard(10*time.Second, byte(commands.PICC_AUTHENT1B), 0, 0, key)
 
 			// If main thread timed out just exiting.
 			if timedOut {

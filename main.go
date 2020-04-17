@@ -8,8 +8,12 @@ import (
 func main(){
 	devices,_ := nfc.ListDevices()
 	dev := nfc.Device{}
-	nfc.Open("")
+	pnd, err := nfc.Open("")
+	if err != nil {
+		fmt.Println("Could not open device.")
+	}
 	fmt.Println("bis hier")
 	fmt.Println(devices)
-	fmt.Print(dev)
+	fmt.Println(dev)
+	fmt.Println(pnd)
 }

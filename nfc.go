@@ -34,7 +34,7 @@ func nfcInit() {
 		c <- cardId
 	} else {
 		fmt.Printf("no card found\n")
-		c <- nil
+		c <- [10]byte{}
 	}
 }
 

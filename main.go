@@ -1,6 +1,7 @@
 package main
 
+import "fmt"
+
 func main(){
-	nfcInit()
-	execGetCard()
+	fmt.Println(nfcInit())
 }

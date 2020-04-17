@@ -7,9 +7,8 @@ import (
 )
 
 var m = nfc.Modulation{Type: nfc.ISO14443a}
-var pnd nfc.Device
 
-func nfcInit() {
+func nfcInit() [10]byte {
 
 	fmt.Println("using libnfc", nfc.Version())
 
@@ -24,9 +23,7 @@ func nfcInit() {
 	}
 
 	fmt.Println("opened device", pnd, pnd.Connection())
-}
 
-func execGetCard(){
 	cardId, err := getCard(&pnd)
 	if err != nil {
 		fmt.Errorf("failed to getCard", err)
@@ -34,6 +31,7 @@ func execGetCard(){
 
 	if cardId != [10]byte{} {
 		fmt.Printf("card found %#X\n", cardId)
+		return cardId
 	} else {
 		fmt.Printf("no card found\n")
 	}

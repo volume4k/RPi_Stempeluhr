@@ -2,7 +2,6 @@ package main
 
 import (
 	"encoding/hex"
-	"fmt"
 	"log"
 	"periph.io/x/periph/conn/spi/spireg"
 	"periph.io/x/periph/experimental/devices/mfrc522"

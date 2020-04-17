@@ -34,6 +34,7 @@ func nfcInit() [10]byte {
 		return cardId
 	} else {
 		fmt.Printf("no card found\n")
+		return [10]byte{}
 	}
 }
 

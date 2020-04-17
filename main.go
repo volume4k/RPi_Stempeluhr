@@ -8,4 +8,8 @@ import (
 func main(){
 	devices,_ := nfc.ListDevices()
 	fmt.Println(devices)
+
+	device := nfc.Device{}
+	dev2, _ := nfc.Open(device.Connection())
+	fmt.Println(dev2)
 }

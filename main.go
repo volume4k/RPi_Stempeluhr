@@ -12,6 +12,9 @@ func main(){
 func controlCircle(){
 	// TODO: breakout document
 
-	go nfcInit()
-	handOffForDB(<- c)
+	for  {
+		go nfcInit()
+		handOffForDB(<- c)
+	}
+
 }

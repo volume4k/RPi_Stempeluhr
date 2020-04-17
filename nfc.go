@@ -10,7 +10,7 @@ import (
 func readTag(){
 	fmt.Println("hi")
 	var auth byte = 0
-	var key [6]byte
+	key := mfrc522.DefaultKey
 	dev := mfrc522.Dev{}
 	uid, err := dev.ReadCard(time.Second*15, auth, 0, 0, key)
 	if err != nil {

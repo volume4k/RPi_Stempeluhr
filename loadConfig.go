@@ -1,10 +1,7 @@
 package main
 
-import (
-	"encoding/json"
-	"fmt"
-	"io/ioutil"
-)
+// note: unfortunately the unmarshal/decode function doesn't work -> returns empty struct / doesn't change anything
+// TODO: importing and implementing JSON config <- until then hardcode it.
 
 type Configuration struct {
 	dbUser    string
@@ -14,9 +11,12 @@ type Configuration struct {
 	dbName string
 }
 
-func loadConfig ()  {
-	file, _ := ioutil.ReadFile("conf.json")
-	configuration := Configuration{dbName: "db name", dbPass: "nothing kommt hier vorbei"}
-	_ = json.Unmarshal(file, &configuration)
-	fmt.Println(configuration)
+func loadConfig () Configuration {
+	configuration := Configuration{dbUser: "jonathan", dbPass: "pass", dbAddr: "hostname:port", dbName: "dbName", dbProtocol: "tcp"}
+	return configuration
+
+	// FOR TODO
+	//file, _ := ioutil.ReadFile("conf.json")
+	//_ = json.Unmarshal(file, &configuration)
+	//fmt.Println(configuration)
 }

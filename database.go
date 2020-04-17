@@ -1,17 +1,29 @@
 package main
 
-config := mysql.Config{
-User:   "user",
-Passwd: "password",
-Net:    "tcp",
-Addr:   "hostname:Port",
-DBName: "dbname",
+import (
+	"database/sql"
+	"fmt"
+	"github.com/go-sql-driver/mysql"
+)
+
+func formatDSN(a Configuration) string {
+	config := mysql.Config{
+		User:   a.dbUser,
+		Passwd: a.dbPass,
+		Net:    a.dbProtocol,
+		Addr:   a.dbAddr,
+		DBName: a.dbName,
+	}
+
+	myDsn := config.FormatDSN()
+
+	return myDsn
 }
 
-myDsn := config.FormatDSN()
-fmt.Println(myDsn)
-db, err := sql.Open("mysql",myDsn)
-if err != nil {
-panic(err)
+func none(){
+	db, err := sql.Open("mysql",formatDSN(loadConfig()))
+	if err != nil {
+		panic(err)
+	}
+	fmt.Println(db)
 }
-fmt.Println(db)

@@ -1,10 +1,8 @@
 package main
 
-import (
-)
+import "fmt"
 
 func main(){
-
-	loadConfig()
-
+	fmt.Println(formatDSN(loadConfig()))
+	readTag()
 }

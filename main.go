@@ -9,6 +9,6 @@ func main(){
 	devices,_ := nfc.ListDevices()
 	dev := nfc.Device{}
 	fmt.Println(devices)
-	fmt.Println(dev.Information())
+	_ = dev.InitiatorInit()
 	fmt.Println(nfc.Version())
 }

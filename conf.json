@@ -1,0 +1,7 @@
+{
+  "dbUser": "jonathan",
+  "dbPass": "Schlagzeug12",
+  "dbAddr": "hostname:port",
+  "dbProtocol": "tcp",
+  "dbName": "standard_db"
+}

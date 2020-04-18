@@ -32,6 +32,7 @@ func nfcInit() {
 	if cardId != [10]byte{} {
 		fmt.Printf("card found %#X\n", cardId)
 		c <- cardId
+		pnd.Close()
 	} else {
 		fmt.Printf("no card found\n")
 		c <- [10]byte{}

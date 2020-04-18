@@ -30,6 +30,7 @@ func none(){
 
 func handOffForDB(u [10]byte){
 // instantly hands off operation to Handler
+	fmt.Println("made it til here")
 	go DBHandler(u)
 	return
 }

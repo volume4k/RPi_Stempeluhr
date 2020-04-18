@@ -2,6 +2,8 @@ package main
 
 import "fmt"
 
+var c = make(chan [10]byte)
+
 func main(){
 	fmt.Println("starting up.")
 	controlCircle()
@@ -10,7 +12,7 @@ func main(){
 func controlCircle(){
 	// TODO: breakout document
 
-	c := make(chan [10]byte)
+
 
 	for  {
 		go nfcInit()
